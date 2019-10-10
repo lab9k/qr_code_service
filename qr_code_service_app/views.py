@@ -13,7 +13,7 @@ import io
 
 def index_view(request):
     data = request.GET.get('query', '')
-    version = int(request.GET.get('version', None))
+    version = int(request.GET.get('version', 1))
     error_correction = int(request.GET.get('error_correction', 0))
     box_size = int(request.GET.get('box_size', 10))
     border = int(request.GET.get('border', 4))
