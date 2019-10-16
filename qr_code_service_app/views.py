@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest
 import qrcode
 import qrcode.image.svg
 import io
@@ -13,6 +13,12 @@ import io
 
 def index_view(request):
     data = request.GET.get('query', '')
+
+    if data == '':
+        return HttpResponseBadRequest(
+            "{\"error\": {\"code\": 400, \"message\": \"query parameter should not be empty\"}}",
+            content_type="application/json")
+
     version = int(request.GET.get('version', 1))
     error_correction = int(request.GET.get('error_correction', 0))
     box_size = int(request.GET.get('box_size', 10))
